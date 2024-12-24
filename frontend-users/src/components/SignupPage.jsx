@@ -1,4 +1,4 @@
-import { Link, Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useNavigate } from "react-router";
 
@@ -34,11 +34,6 @@ const SignupPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
-    console.log("creating account");
-    console.log(username);
-    console.log(password);
-
-    // const handleErrorChange
 
     try {
       //send request to backend and wait for a response
@@ -53,16 +48,12 @@ const SignupPage = () => {
         },
       });
       if (!response.ok) {
-        console.log("something went wrong");
         setError(await response.text());
       } else {
-        console.log(response.status);
         alert(await response.text());
         handleNavigate();
       }
-    } catch (error) {
-      console.log("error occurred");
-      console.log(error);
+    } catch {
       setError("Error Fetching Backend");
     }
   };
@@ -81,23 +72,23 @@ const SignupPage = () => {
             </li>
           </ul>
         </nav>
+      </div>
 
-        <div className="form">
-          <h2>User Registration</h2>
-          <p>Password must contain at least four characters</p>
-          <form>
-            <label className="label">Username</label>
-            <input onChange={handleNameChange} className="input" value={username} type="text" />
+      <div className="form">
+        <h2>User Registration</h2>
+        <p>Password must contain at least four characters</p>
+        <form>
+          <label className="label">Username</label>
+          <input onChange={handleNameChange} className="input" value={username} type="text" />
 
-            <label className="label">Password</label>
-            <input onChange={handlePasswordChange} className="input" value={password} type="password" />
+          <label className="label">Password</label>
+          <input onChange={handlePasswordChange} className="input" value={password} type="password" />
 
-            <button onClick={handleSubmit} className="btn" type="submit" disabled={!validUsername || !validPassword}>
-              Submit
-            </button>
-          </form>
-          {error != "" && <div className="errorSection">Error: {error}</div>}
-        </div>
+          <button onClick={handleSubmit} className="btn" type="submit" disabled={!validUsername || !validPassword}>
+            Submit
+          </button>
+        </form>
+        {error != "" && <div className="errorSection">Error: {error}</div>}
       </div>
     </>
   );
