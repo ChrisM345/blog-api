@@ -1,12 +1,18 @@
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { useState } from "react";
+import { useNavigate } from "react-router";
 
 const SignupPage = () => {
+  const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [validUsername, setValidUsername] = useState(false);
   const [validPassword, setValidPassword] = useState(false);
+  const [error, setError] = useState("");
 
+  const handleNavigate = () => {
+    navigate("/");
+  };
   const handleNameChange = (e) => {
     if (e.target.value != "") {
       setValidUsername(true);
@@ -27,13 +33,12 @@ const SignupPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError("");
     console.log("creating account");
     console.log(username);
     console.log(password);
-    const data = {
-      username,
-      password,
-    };
+
+    // const handleErrorChange
 
     try {
       //send request to backend and wait for a response
@@ -49,9 +54,16 @@ const SignupPage = () => {
       });
       if (!response.ok) {
         console.log("something went wrong");
+        setError(await response.text());
+      } else {
+        console.log(response.status);
+        alert(await response.text());
+        handleNavigate();
       }
     } catch (error) {
       console.log("error occurred");
+      console.log(error);
+      setError("Error Fetching Backend");
     }
   };
 
@@ -84,6 +96,7 @@ const SignupPage = () => {
               Submit
             </button>
           </form>
+          {error != "" && <div className="errorSection">Error: {error}</div>}
         </div>
       </div>
     </>
