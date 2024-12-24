@@ -11,8 +11,27 @@ const validateLogin = [
 ];
 
 const login = async (req, res) => {
-  console.log("login");
-  res.send("login");
+  const { username, password } = req.body;
+  const user = await getUser(username);
+
+  try {
+    if (!user) {
+      console.log("Username not found in database");
+      return res.status(404).send("Username does not exist");
+    }
+
+    const matchPassword = await bcrypt.compare(password, user.password);
+
+    if (!matchPassword) {
+      console.log("Incorrect password");
+      return res.status(404).send("Incorrect password");
+    }
+    console.log(user);
+    return res.status(200).send("Logging in");
+  } catch (err) {
+    console.log("unknown error");
+    return res.status(400).send("Unknown Error");
+  }
 };
 
 const signup = [
