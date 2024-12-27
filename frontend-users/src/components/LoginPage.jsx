@@ -50,7 +50,12 @@ const LoginPage = () => {
       if (!response.ok) {
         setError(await response.text());
       } else {
-        alert(await response.text());
+        const { token, message, username } = await response.json();
+        localStorage.setItem("token", token);
+        localStorage.setItem("username", username);
+        console.log(token);
+        console.log(message);
+        alert(message);
         handleNavigate();
       }
     } catch {

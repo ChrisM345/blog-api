@@ -1,6 +1,7 @@
 const bcrypt = require("bcryptjs");
 const { body, validationResult } = require("express-validator");
 const { createUser, getUser } = require("../db/queries");
+const jwt = require("jsonwebtoken");
 
 const validateLogin = [
   body("username").custom(async (value) => {
@@ -27,7 +28,24 @@ const login = async (req, res) => {
       return res.status(404).send("Incorrect password");
     }
     console.log(user);
-    return res.status(200).send("Logging in");
+    console.log(user.id);
+    console.log(user.username);
+
+    const token = jwt.sign(
+      {
+        userId: user.id,
+        username: user.username,
+      },
+      process.env.JWT_SECRET
+    );
+
+    console.log(token);
+
+    return res.status(200).json({
+      token: token,
+      message: "Logging in",
+      username: user.username,
+    });
   } catch (err) {
     console.log("unknown error");
     return res.status(400).send("Unknown Error");
