@@ -10,7 +10,7 @@ const PORT = process.env.PORT || 8000;
 // });
 
 let corsOptions = {
-  origin: ["http://127.0.0.1:5173"],
+  origin: ["http://127.0.0.1:5173", "http://127.0.0.1:5174"],
 };
 
 app.use(cors(corsOptions));

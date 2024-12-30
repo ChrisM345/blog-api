@@ -10,7 +10,7 @@ const BlogMainPage = () => {
 
   return (
     <>
-      <h2>Welcome to my Blog Page</h2>
+      <h1>Welcome to my Blog Page</h1>
       {!localStorage.getItem("token") ? (
         <div className="links">
           <nav>
@@ -26,7 +26,7 @@ const BlogMainPage = () => {
         </div>
       ) : (
         <>
-          <h3>Welcome {localStorage.getItem("username")}</h3>
+          <h1>Welcome {localStorage.getItem("username")}</h1>
           <div className="links">
             <nav>
               <ul>

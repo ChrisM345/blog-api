@@ -65,7 +65,7 @@ const LoginPage = () => {
 
   return (
     <>
-      <h2>Login</h2>
+      <h1>Login</h1>
       <div className="links">
         <nav>
           <ul>
@@ -80,7 +80,7 @@ const LoginPage = () => {
       </div>
 
       <div className="form">
-        <h2>User Login</h2>
+        <h1>User Login</h1>
         <form>
           <label className="label">Username</label>
           <input onChange={handleNameChange} className="input" value={username} type="text" />

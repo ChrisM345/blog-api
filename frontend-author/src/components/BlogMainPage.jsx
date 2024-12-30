@@ -10,7 +10,7 @@ const BlogMainPage = () => {
 
   return (
     <>
-      <h2>Blog Admin Page</h2>
+      <h1>Blog Admin Page</h1>
       {!localStorage.getItem("token") ? (
         <div className="links">
           <nav>
@@ -26,10 +26,16 @@ const BlogMainPage = () => {
         </div>
       ) : (
         <>
-          <h3>Welcome {localStorage.getItem("username")}</h3>
+          <h1>Welcome {localStorage.getItem("username")}</h1>
           <div className="links">
             <nav>
               <ul>
+                <li>
+                  <Link to="/posts">Posts</Link>
+                </li>
+                <li>
+                  <Link to="posts">Create Posts</Link>
+                </li>
                 <li>
                   <button className="btn" onClick={handleLogout}>
                     Logout

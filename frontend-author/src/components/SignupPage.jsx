@@ -60,7 +60,7 @@ const SignupPage = () => {
 
   return (
     <>
-      <h2>Signup</h2>
+      <h1>Signup</h1>
       <div className="links">
         <nav>
           <ul>
@@ -75,7 +75,7 @@ const SignupPage = () => {
       </div>
 
       <div className="form">
-        <h2>User Registration</h2>
+        <h1>User Registration</h1>
         <p>Password must contain at least four characters</p>
         <form>
           <label className="label">Username</label>
