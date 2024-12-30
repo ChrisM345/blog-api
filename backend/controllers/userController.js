@@ -35,6 +35,7 @@ const login = async (req, res) => {
       {
         userId: user.id,
         username: user.username,
+        role: user.role,
       },
       process.env.JWT_SECRET
     );
@@ -65,7 +66,7 @@ const signup = [
         if (err) {
           return console.log("Error encrypting password");
         }
-        createUser(req.body.username, hashedPassword);
+        createUser(req.body.username, hashedPassword, req.body.adminCode);
         //send successful response
         return res.status(201).send("User created successfully");
       });

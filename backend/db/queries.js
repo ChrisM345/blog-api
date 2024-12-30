@@ -2,11 +2,18 @@ const { PrismaClient } = require("@prisma/client");
 
 const prisma = new PrismaClient();
 
-async function createUser(username, password) {
+async function createUser(username, password, adminCode) {
+  console.log(adminCode);
+  let role = "USER";
+  if (adminCode == process.env.ADMIN_CODE) {
+    role = "ADMIN";
+  }
+
   const user = await prisma.users.create({
     data: {
       username: username,
       password: password,
+      role: role,
     },
   });
 }
