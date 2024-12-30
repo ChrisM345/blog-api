@@ -16,7 +16,7 @@ const BlogMainPage = () => {
           <nav>
             <ul>
               <li>
-                <Link to="/auth/signup">Sign up</Link>
+                <Link to="/auth/signup/admin">Sign up</Link>
               </li>
               <li>
                 <Link to="/auth/login">Login</Link>
@@ -34,7 +34,7 @@ const BlogMainPage = () => {
                   <Link to="/posts">Posts</Link>
                 </li>
                 <li>
-                  <Link to="posts">Create Posts</Link>
+                  <Link to="posts/create">Create Posts</Link>
                 </li>
                 <li>
                   <button className="btn" onClick={handleLogout}>

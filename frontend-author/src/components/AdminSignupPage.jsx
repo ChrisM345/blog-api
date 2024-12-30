@@ -2,10 +2,11 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useNavigate } from "react-router";
 
-const SignupPage = () => {
+const AdminSignupPage = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [adminCode, setAdminCode] = useState("");
   const [validUsername, setValidUsername] = useState(false);
   const [validPassword, setValidPassword] = useState(false);
   const [error, setError] = useState("");
@@ -31,17 +32,22 @@ const SignupPage = () => {
     setPassword(e.target.value.trim());
   };
 
+  const handleAdminCodeChange = (e) => {
+    setAdminCode(e.target.value.trim());
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
 
     try {
       //send request to backend and wait for a response
-      const response = await fetch("http://localhost:8000/auth/signup", {
+      const response = await fetch("http://localhost:8000/auth/signup/admin", {
         method: "POST",
         body: JSON.stringify({
           username: username,
           password: password,
+          adminCode: adminCode,
         }),
         headers: {
           "Content-Type": "application/json",
@@ -75,7 +81,7 @@ const SignupPage = () => {
       </div>
 
       <div className="form">
-        <h1>User Registration</h1>
+        <h1>Admin Registration</h1>
         <p>Password must contain at least four characters</p>
         <form>
           <label className="label">Username</label>
@@ -83,6 +89,9 @@ const SignupPage = () => {
 
           <label className="label">Password</label>
           <input onChange={handlePasswordChange} className="input" value={password} type="password" />
+
+          <label className="label">Admin Code</label>
+          <input onChange={handleAdminCodeChange} className="input" value={adminCode} type="password" />
 
           <button onClick={handleSubmit} className="btn" type="submit" disabled={!validUsername || !validPassword}>
             Submit
@@ -94,4 +103,4 @@ const SignupPage = () => {
   );
 };
 
-export default SignupPage;
+export default AdminSignupPage;

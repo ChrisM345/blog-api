@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
 
-const PostsPage = () => {
+const CreatePostPage = () => {
   return (
     <>
-      <h1>Posts</h1>
+      <h1>Create Post</h1>
       <div className="links">
         <nav>
           <ul>
@@ -17,4 +17,4 @@ const PostsPage = () => {
   );
 };
 
-export default PostsPage;
+export default CreatePostPage;
