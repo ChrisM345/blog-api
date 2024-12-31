@@ -20,6 +20,9 @@ app.use(express.urlencoded({ extended: true }));
 const userRouter = require("./routes/userRoutes");
 app.use(userRouter);
 
+const postRouter = require("./routes/postRoutes");
+app.use(postRouter);
+
 app.get("/", (req, res) => {
   res.send("Welcome");
 });

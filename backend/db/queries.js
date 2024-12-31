@@ -27,7 +27,17 @@ async function getUser(username) {
   return user;
 }
 
+async function createPost(postTitle, postContent) {
+  const post = await prisma.posts.create({
+    data: {
+      title: postTitle,
+      content: postContent,
+    },
+  });
+}
+
 module.exports = {
   createUser,
   getUser,
+  createPost,
 };
