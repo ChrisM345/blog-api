@@ -36,8 +36,16 @@ async function createPost(postTitle, postContent) {
   });
 }
 
+async function getAllPosts() {
+  console.log("HELLO");
+  const posts = await prisma.posts.findMany();
+  console.log(posts);
+  return posts;
+}
+
 module.exports = {
   createUser,
   getUser,
   createPost,
+  getAllPosts,
 };
