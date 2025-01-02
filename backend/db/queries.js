@@ -37,10 +37,21 @@ async function createPost(postTitle, postContent) {
 }
 
 async function getAllPosts() {
-  console.log("HELLO");
-  const posts = await prisma.posts.findMany();
+  const posts = await prisma.posts.findMany({
+    orderBy: {
+      id: "desc",
+    },
+  });
   console.log(posts);
   return posts;
+}
+
+async function deletePost(id) {
+  const deletePost = await prisma.posts.delete({
+    where: {
+      id: id,
+    },
+  });
 }
 
 module.exports = {
@@ -48,4 +59,5 @@ module.exports = {
   getUser,
   createPost,
   getAllPosts,
+  deletePost,
 };
