@@ -31,6 +31,22 @@ const BlogMainPage = () => {
     fetchPosts();
   }, []);
 
+  const handleDeletePost = async (postId) => {
+    const token = localStorage.getItem("token");
+    try {
+      await fetch(`http://localhost:8000/posts/${postId}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log("am i getting here?");
+      setPosts(posts.filter((post) => post.id !== postId));
+    } catch (error) {
+      console.log(`Failed to delete post: ${error}`);
+    }
+  };
+
   return (
     <>
       <h1>Blog Admin Page</h1>
@@ -73,6 +89,23 @@ const BlogMainPage = () => {
                 <div key={post.id} className="post">
                   <h1>{post.title}</h1>
                   {post.content}
+                  <ul>
+                    <li>
+                      <button className="btn">
+                        <Link to={`posts/${post.id}`}>View Post and Comments</Link>
+                      </button>
+                    </li>
+                    <li>
+                      <button className="btn">
+                        <Link to={`posts/${post.id}/edit`}>Edit Post</Link>
+                      </button>
+                    </li>
+                    <li>
+                      <button className="btn" onClick={() => handleDeletePost(post.id)}>
+                        Delete Post
+                      </button>
+                    </li>
+                  </ul>
                 </div>
               );
             })}
