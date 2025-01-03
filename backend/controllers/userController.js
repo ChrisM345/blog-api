@@ -17,19 +17,14 @@ const login = async (req, res) => {
 
   try {
     if (!user) {
-      console.log("Username not found in database");
       return res.status(404).send("Username does not exist");
     }
 
     const matchPassword = await bcrypt.compare(password, user.password);
 
     if (!matchPassword) {
-      console.log("Incorrect password");
       return res.status(404).send("Incorrect password");
     }
-    console.log(user);
-    console.log(user.id);
-    console.log(user.username);
 
     const token = jwt.sign(
       {
@@ -40,15 +35,12 @@ const login = async (req, res) => {
       process.env.JWT_SECRET
     );
 
-    console.log(token);
-
     return res.status(200).json({
       token: token,
       message: "Logging in",
       username: user.username,
     });
   } catch (err) {
-    console.log("unknown error");
     return res.status(400).send("Unknown Error");
   }
 };

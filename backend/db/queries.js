@@ -3,7 +3,6 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
 async function createUser(username, password, adminCode) {
-  console.log(adminCode);
   let role = "USER";
   if (adminCode == process.env.ADMIN_CODE) {
     role = "ADMIN";
@@ -42,7 +41,6 @@ async function getAllPosts() {
       id: "desc",
     },
   });
-  console.log(posts);
   return posts;
 }
 
@@ -54,10 +52,55 @@ async function deletePost(id) {
   });
 }
 
+async function getPostDetails(id) {
+  const post = await prisma.posts.findUnique({
+    where: {
+      id: id,
+    },
+  });
+
+  return post;
+}
+
+async function createComment(username, postId, commentContent) {
+  const user = await getUser(username);
+  const userId = user.id;
+  const comment = await prisma.comments.create({
+    data: {
+      content: commentContent,
+      Posts: {
+        connect: {
+          id: postId,
+        },
+      },
+      author: {
+        connect: {
+          id: userId,
+        },
+      },
+    },
+  });
+}
+
+async function getComments(postId) {
+  const comments = await prisma.comments.findMany({
+    orderBy: {
+      id: "desc",
+    },
+    where: {
+      postsId: postId,
+    },
+  });
+  return comments;
+}
+
 module.exports = {
   createUser,
   getUser,
   createPost,
   getAllPosts,
   deletePost,
+  getPostDetails,
+  createComment,
+  getComments,
 };
