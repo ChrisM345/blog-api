@@ -5,7 +5,6 @@ const BlogMainPage = () => {
   const [posts, setPosts] = useState([]);
 
   const handleLogout = () => {
-    // console.log("logout");
     localStorage.removeItem("token");
     localStorage.removeItem("username");
     window.location.reload();
@@ -40,7 +39,6 @@ const BlogMainPage = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log("am i getting here?");
       setPosts(posts.filter((post) => post.id !== postId));
     } catch (error) {
       console.log(`Failed to delete post: ${error}`);
