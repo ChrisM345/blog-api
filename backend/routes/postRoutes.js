@@ -9,5 +9,8 @@ router.delete("/posts/:postId", verifyAdminToken, controller.deletePostControlle
 router.get("/posts/:postId", verifyToken, controller.viewPostController);
 router.get("/posts/:postId/comments", verifyToken, controller.getPostsController);
 router.post("/posts/:postId/comment", verifyToken, controller.postCommentController);
+router.put("/posts/:postId/", verifyAdminToken, controller.updatePostController);
+router.get("/posts/:postId/comment/:commentId", controller.getCommentController);
+router.put("/posts/:postId/comment/:commentId", controller.updateCommentController);
 
 module.exports = router;

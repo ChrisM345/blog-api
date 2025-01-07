@@ -45,11 +45,19 @@ async function getAllPosts() {
 }
 
 async function deletePost(id) {
-  const deletePost = await prisma.posts.delete({
+  const deleteComments = prisma.comments.deleteMany({
+    where: {
+      postsId: id,
+    },
+  });
+
+  const deletePost = prisma.posts.delete({
     where: {
       id: id,
     },
   });
+
+  const transaction = await prisma.$transaction([deleteComments, deletePost]);
 }
 
 async function getPostDetails(id) {
@@ -94,6 +102,38 @@ async function getComments(postId) {
   return comments;
 }
 
+async function updatePost(postId, postTitle, postContent) {
+  const post = await prisma.posts.update({
+    where: {
+      id: postId,
+    },
+    data: {
+      title: postTitle,
+      content: postContent,
+    },
+  });
+}
+
+async function getComment(commentId) {
+  const comment = await prisma.comments.findUnique({
+    where: {
+      id: commentId,
+    },
+  });
+  return comment;
+}
+
+async function updateComment(commentId, commentContent) {
+  const comment = await prisma.comments.update({
+    where: {
+      id: commentId,
+    },
+    data: {
+      content: commentContent,
+    },
+  });
+}
+
 module.exports = {
   createUser,
   getUser,
@@ -103,4 +143,7 @@ module.exports = {
   getPostDetails,
   createComment,
   getComments,
+  updatePost,
+  getComment,
+  updateComment,
 };

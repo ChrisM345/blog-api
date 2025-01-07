@@ -2,10 +2,8 @@ const jwt = require("jsonwebtoken");
 const JWT_SECRET = process.env.JWT_SECRET;
 
 const verifyToken = (req, res, next) => {
-  console.log(req.headers);
   const authHeader = req.headers["authorization"];
   const token = authHeader && authHeader.split(" ")[1]; // Bearer <token>
-  console.log(token);
   if (!token) {
     return res.status(401).send("Unauthorized");
   }
@@ -19,10 +17,8 @@ const verifyToken = (req, res, next) => {
 };
 
 const verifyAdminToken = (req, res, next) => {
-  console.log(req.headers);
   const authHeader = req.headers["authorization"];
   const token = authHeader && authHeader.split(" ")[1]; // Bearer <token>
-  console.log(token);
   if (!token) {
     return res.status(401).send("Unauthorized");
   }
