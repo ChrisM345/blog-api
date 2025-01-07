@@ -8,6 +8,7 @@ const {
   updatePost,
   getComment,
   updateComment,
+  deleteComment,
 } = require("../db/queries");
 
 const post = async (req, res) => {
@@ -102,6 +103,15 @@ const updateCommentController = async (req, res) => {
   }
 };
 
+const deleteCommentController = async (req, res) => {
+  try {
+    await deleteComment(parseInt(req.params.commentId));
+    return res.status(200).send();
+  } catch (error) {
+    return res.status(500).send("Unknown Error");
+  }
+};
+
 module.exports = {
   post,
   getPosts,
@@ -112,4 +122,5 @@ module.exports = {
   updatePostController,
   getCommentController,
   updateCommentController,
+  deleteCommentController,
 };

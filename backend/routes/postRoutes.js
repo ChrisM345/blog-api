@@ -10,7 +10,8 @@ router.get("/posts/:postId", verifyToken, controller.viewPostController);
 router.get("/posts/:postId/comments", verifyToken, controller.getPostsController);
 router.post("/posts/:postId/comment", verifyToken, controller.postCommentController);
 router.put("/posts/:postId/", verifyAdminToken, controller.updatePostController);
-router.get("/posts/:postId/comment/:commentId", controller.getCommentController);
-router.put("/posts/:postId/comment/:commentId", controller.updateCommentController);
+router.get("/posts/:postId/comment/:commentId", verifyToken, controller.getCommentController);
+router.put("/posts/:postId/comment/:commentId", verifyAdminToken, controller.updateCommentController);
+router.delete("/posts/:postId/comment/:commentId", verifyAdminToken, controller.deleteCommentController);
 
 module.exports = router;
