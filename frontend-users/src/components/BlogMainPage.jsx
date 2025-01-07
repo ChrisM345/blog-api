@@ -1,12 +1,34 @@
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 const BlogMainPage = () => {
+  const [posts, setPosts] = useState([]);
+
   const handleLogout = () => {
-    // console.log("logout");
     localStorage.removeItem("token");
     localStorage.removeItem("username");
     window.location.reload();
   };
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      const token = localStorage.getItem("token");
+      try {
+        const response = await fetch("http://localhost:8000/posts", {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        const { data } = await response.json();
+        setPosts(data);
+      } catch (error) {
+        console.log(`Failed to fetch posts: ${error}`);
+      }
+    };
+
+    fetchPosts();
+  }, []);
 
   return (
     <>
@@ -37,6 +59,23 @@ const BlogMainPage = () => {
                 </li>
               </ul>
             </nav>
+          </div>
+          <div className="postSection">
+            {posts.map((post) => {
+              return (
+                <div key={post.id} className="post">
+                  <h1>{post.title}</h1>
+                  {post.content}
+                  <ul>
+                    <li>
+                      <button className="btn">
+                        <Link to={`posts/${post.id}`}>View Post and Comments</Link>
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+              );
+            })}
           </div>
         </>
       )}
