@@ -94,11 +94,6 @@ const BlogMainPage = () => {
                       </button>
                     </li>
                     <li>
-                      <button className="btn">
-                        <Link to={`posts/${post.id}/edit`}>Edit Post</Link>
-                      </button>
-                    </li>
-                    <li>
                       <button className="btn" onClick={() => handleDeletePost(post.id)}>
                         Delete Post
                       </button>

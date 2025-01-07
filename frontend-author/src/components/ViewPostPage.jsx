@@ -68,6 +68,11 @@ const ViewPostPage = () => {
             <ul>
               <li>
                 <button className="btn">
+                  <Link to={`edit/`}>Edit Post</Link>
+                </button>
+              </li>
+              <li>
+                <button className="btn">
                   <Link to={`comment/`}>Add Comment</Link>
                 </button>
               </li>
@@ -77,6 +82,9 @@ const ViewPostPage = () => {
               return (
                 <div key={comment.id} className="comment">
                   {comment.content}
+                  <button className="btn">
+                    <Link to={`comment/${comment.id}/edit`}>Edit Comment</Link>
+                  </button>
                 </div>
               );
             })}
