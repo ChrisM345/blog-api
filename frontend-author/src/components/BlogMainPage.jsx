@@ -68,9 +68,6 @@ const BlogMainPage = () => {
             <nav>
               <ul>
                 <li>
-                  <Link to="/posts">Posts</Link>
-                </li>
-                <li>
                   <Link to="posts/create">Create Posts</Link>
                 </li>
                 <li>

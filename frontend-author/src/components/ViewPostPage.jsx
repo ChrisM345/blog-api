@@ -7,6 +7,21 @@ const ViewPostPage = () => {
 
   const { postId } = useParams();
 
+  const handleDeleteComment = async (commentId) => {
+    const token = localStorage.getItem("token");
+    try {
+      await fetch(`http://localhost:8000/posts/${postId}/comment/${commentId}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setComments(comments.filter((comment) => comment.id !== commentId));
+    } catch (error) {
+      console.log(`Failed to delete post: ${error}`);
+    }
+  };
+
   useEffect(() => {
     const fetchPosts = async () => {
       const token = localStorage.getItem("token");
@@ -84,6 +99,9 @@ const ViewPostPage = () => {
                   {comment.content}
                   <button className="btn">
                     <Link to={`comment/${comment.id}/edit`}>Edit Comment</Link>
+                  </button>
+                  <button className="btn" onClick={() => handleDeleteComment(comment.id)}>
+                    Delete Comment
                   </button>
                 </div>
               );
